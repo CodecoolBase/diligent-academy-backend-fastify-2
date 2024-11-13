@@ -1,0 +1,12 @@
+@host = http://localhost:4400
+
+###
+
+GET {{host}}/api/pets
+
+###
+
+POST {{host}}/api/pets
+Content-Type: application/json
+
+{"name": "Fluffy", "age": 5, "weightInKg": 7}
