@@ -16,12 +16,16 @@ const options = {
   },
 };
 
-const app = createApp(options, { dbClient });
+async function main() {
+  const app = await createApp(options, { dbClient })
+  
+  app.listen({ port: PORT }, (error, address) => {
+    if (error) {
+      app.log.error(error);
+      process.exit(1);
+    }
+    app.log.info(`Server is started successfully.`)
+  });
+}
 
-app.listen({ port: PORT }, (error, address) => {
-  if (error) {
-    app.log.error(error);
-    process.exit(1);
-  }
-  app.log.info(`Server is started successfully.`)
-});
+main();

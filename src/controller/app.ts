@@ -6,6 +6,7 @@ import { OwnerRepository } from '../repository/owner.repository';
 import { OwnerService } from '../service/owner.service';
 import { createPetRoutes } from './routes/pet/pet.routes';
 import { createOwnerRoutes } from './routes/owner/owner.routes';
+import createGreeterPlugin from './plugins/greeter';
 
 type Dependencies = {
   dbClient: DbClient;
@@ -19,7 +20,7 @@ declare module 'fastify' {
 }
 
 
-export default function createApp(options = {}, dependencies: Dependencies) {
+export default async function createApp(options = {}, dependencies: Dependencies) {
   const { dbClient } = dependencies;
 
   const petRepository = new PetRepository(dbClient);
@@ -32,9 +33,9 @@ export default function createApp(options = {}, dependencies: Dependencies) {
   app.decorate('petService', petService);
   app.decorate('ownerService', ownerService)
 
-  app.register(createPetRoutes, { prefix: '/api/pets' });
-  app.register(createOwnerRoutes, { prefix: '/api/owners' });
-  // app.register(createMessengerPlugin, {message: 'hjksdhjkashdkja'})
+  await app.register(createGreeterPlugin, { message: 'Hi' })
+  await app.register(createPetRoutes, { prefix: '/api/pets' });
+  await app.register(createOwnerRoutes, { prefix: '/api/owners' });
 
   return app;
 }
