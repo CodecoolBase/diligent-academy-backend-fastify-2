@@ -5,6 +5,7 @@
 ### Install NPM dependencies
 
 - Issue an `npm install` command.
+- Rename `.env.example` to `.env` for development and fill the proper values.
 
 ## Using the repo
 

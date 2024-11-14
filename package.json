@@ -16,6 +16,7 @@
   "description": "",
   "dependencies": {
     "@fastify/type-provider-json-schema-to-ts": "^4.0.1",
+    "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
     "pg": "^8.13.1",
     "pg-format": "^1.0.4"
