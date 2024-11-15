@@ -2,6 +2,8 @@ import { FastifyPluginAsync } from 'fastify'
 import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 import { putPetsToOwnersSchema } from '../pet/pet.schemas';
 import { getOwnerByIdSchema, getOwnersSchema, postOwnerSchema } from './owner.schemas';
+import { PetNotFoundError, PetTakenError } from '../../../service/pet.service';
+import { httpErrors } from '@fastify/sensible';
 
 export const createOwnerRoutes: FastifyPluginAsync = async (
   app,
@@ -12,9 +14,9 @@ export const createOwnerRoutes: FastifyPluginAsync = async (
     '/:ownerId/pets/:petId',
     { schema: putPetsToOwnersSchema },
     async (request) => {
-      const { petId, ownerId } = request.params;
-      const updated = await app.petService.adopt(petId, ownerId);
-      return updated;
+        const { petId, ownerId } = request.params;
+        const updated = await app.petService.adopt(petId, ownerId);
+        return updated;
     }
   )
 

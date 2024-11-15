@@ -6,7 +6,7 @@ GET {{host}}/api/pets
 
 ###
 
-GET {{host}}/api/pets/3
+GET {{host}}/api/pets/399
 
 ###
 
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ### 
 
-PUT {{host}}/api/owners/1/pets/24
+PUT {{host}}/api/owners/1/pets/3999
 
 ###
 
