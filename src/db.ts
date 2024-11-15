@@ -2,6 +2,7 @@ import {Pool} from 'pg';
 
 export type DbClient = {
   query: <RowType>(query: string, params?: any[]) => Promise<RowType[] | RowType>;
+  close: () => Promise<void>
 }
 
 export function createPgClient(connectionString: string): DbClient {
@@ -12,6 +13,9 @@ export function createPgClient(connectionString: string): DbClient {
     async query(sql: string, params?: any[]) {
       const result = await pool.query(sql, params);
       return result.rows;
+    },
+    async close() {
+      await pool.end();
     }
 
   }

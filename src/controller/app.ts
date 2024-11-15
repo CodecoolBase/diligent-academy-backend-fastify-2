@@ -1,9 +1,9 @@
 import fastify from 'fastify';
-import { PetService } from '../service/pet.service';
+import { PetService, PetServiceInterface } from '../service/pet.service';
 import { PetRepository } from '../repository/pet.repository';
 import { DbClient } from '../db';
 import { OwnerRepository } from '../repository/owner.repository';
-import { OwnerService } from '../service/owner.service';
+import { OwnerService, OwnerServiceInterface } from '../service/owner.service';
 import { createPetRoutes } from './routes/pet/pet.routes';
 import { createOwnerRoutes } from './routes/owner/owner.routes';
 import createGreeterPlugin from './plugins/greeter';
@@ -14,8 +14,8 @@ type Dependencies = {
 
 declare module 'fastify' {
   interface FastifyInstance {
-    petService: PetService,
-    ownerService: OwnerService
+    petService: PetServiceInterface,
+    ownerService: OwnerServiceInterface
   }
 }
 

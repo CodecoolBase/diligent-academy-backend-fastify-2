@@ -1,7 +1,13 @@
-import { OwnerToCreate } from "../entity/owner.type";
+import { Owner, OwnerToCreate } from "../entity/owner.type";
 import { OwnerRepository } from "../repository/owner.repository";
 
-export class OwnerService {
+export interface OwnerServiceInterface {
+  getAll: () => Promise<Owner[]>
+  getById: (id: number) => Promise<Owner>
+  create: (ownerProps: OwnerToCreate) => Promise<Owner> 
+}
+
+export class OwnerService implements OwnerServiceInterface {
   private readonly repository;
 
   constructor(repository: OwnerRepository) {

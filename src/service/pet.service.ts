@@ -1,7 +1,14 @@
-import { PetToCreate } from "../entity/pet.type";
+import { Pet, PetToCreate } from "../entity/pet.type";
 import { PetRepository } from "../repository/pet.repository"
 
-export class PetService {
+export interface PetServiceInterface {
+  getAll: () => Promise<Pet[]>
+  getById: (id: number) => Promise<Pet>
+  create: (petProps: PetToCreate) => Promise<Pet>
+  adopt: (petId: number, ownerId: number) => Promise<Pet>
+}
+
+export class PetService implements PetServiceInterface {
   private readonly repository;
 
   constructor(repository: PetRepository) {
