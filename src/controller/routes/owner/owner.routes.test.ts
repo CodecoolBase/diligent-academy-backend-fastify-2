@@ -10,6 +10,15 @@ declare module 'fastify' {
   }
 }
 
+function createPetServiceMock(overrides: Partial<PetServiceInterface> = {}) {
+  return {
+    getAll: jest.fn(),
+    adopt: jest.fn(),
+    create: jest.fn(),
+    getById: jest.fn(),
+    ...overrides
+  }
+}
 
 describe('/owner', () => {
   let app: FastifyInstance;
@@ -26,12 +35,10 @@ describe('/owner', () => {
       create: jest.fn(),
       getById: jest.fn(),
     }
-    const petServiceMock: PetServiceInterface = {
-      getAll: jest.fn(),
-      adopt: jest.fn(),
-      create: jest.fn(),
-      getById: jest.fn(),
-    }
+    const petServiceMock: PetServiceInterface =  createPetServiceMock({
+      getAll: jest.fn()
+    });
+
     app.decorate('petService', petServiceMock);
     app.decorate('ownerService', ownerServiceMock);
     await app.register(createOwnerRoutes, { prefix: '/api/owners' })
@@ -40,7 +47,7 @@ describe('/owner', () => {
     const body = JSON.parse(response.body);
 
     expect(body).toStrictEqual(expected);
-    expect(ownerServiceMock.getAll).toHaveBeenCalledTimes(2)
+    expect(ownerServiceMock.getAll).toHaveBeenCalledTimes(1)
   })
 
   afterEach(() => {
