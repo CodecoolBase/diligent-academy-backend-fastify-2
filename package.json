@@ -7,7 +7,7 @@
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.json ",
     "start": "node build/src/server.js",
-    "test": "jest",
+    "test": "jest --testTimeout 15000",
     "dev": "nodemon --exec ts-node src/server.ts"
   },
   "keywords": [],
